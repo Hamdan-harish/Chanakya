@@ -159,7 +159,7 @@ export function NetworkGraph({
       return { k, x: mx - (mx - t.x) * ratio, y: my - (my - t.y) * ratio };
     });
 
-  const showLabels = transform.k > 0.62;
+  const showLabels = transform.k > 0.5;
   const showEdgeLabels = transform.k > 1.0;
 
   return (
