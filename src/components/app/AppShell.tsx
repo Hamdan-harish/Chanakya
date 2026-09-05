@@ -124,8 +124,10 @@ function Sidebar() {
   );
 }
 
+const ACTIVE_CASE = { name: "OPERATION ALPHA", id: "OP-2026-001" };
+
 function TopBar() {
-  const active = CASES[0];
+  const active = CASES[0] ?? ACTIVE_CASE;
   return (
     <header className="flex h-14 shrink-0 items-center gap-4 border-b border-border bg-surface px-4">
       <div className="hidden min-w-0 items-baseline gap-3 lg:flex">
