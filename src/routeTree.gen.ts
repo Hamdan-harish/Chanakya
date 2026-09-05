@@ -10,17 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuditRouteImport } from './routes/audit'
 import { Route as EntitiesRouteImport } from './routes/entities'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as NetworkRouteImport } from './routes/network'
 import { Route as NewInvestigationRouteImport } from './routes/new-investigation'
 import { Route as PatternsRouteImport } from './routes/patterns'
 import { Route as ProcessingRouteImport } from './routes/processing'
+import { Route as ReportsRouteImport } from './routes/reports'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditRoute = AuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EntitiesRoute = EntitiesRouteImport.update({
@@ -53,6 +62,21 @@ const ProcessingRoute = ProcessingRouteImport.update({
   path: '/processing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsRoute = ReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TimelineRoute = TimelineRouteImport.update({
   id: '/timeline',
   path: '/timeline',
@@ -61,76 +85,104 @@ const TimelineRoute = TimelineRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
   '/patterns': typeof PatternsRoute
   '/processing': typeof ProcessingRoute
+  '/reports': typeof ReportsRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
   '/patterns': typeof PatternsRoute
   '/processing': typeof ProcessingRoute
+  '/reports': typeof ReportsRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/audit': typeof AuditRoute
   '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
   '/patterns': typeof PatternsRoute
   '/processing': typeof ProcessingRoute
+  '/reports': typeof ReportsRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
   '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/audit'
     | '/entities'
     | '/evidence'
     | '/network'
     | '/new-investigation'
     | '/patterns'
     | '/processing'
+    | '/reports'
+    | '/search'
+    | '/settings'
     | '/timeline'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/audit'
     | '/entities'
     | '/evidence'
     | '/network'
     | '/new-investigation'
     | '/patterns'
     | '/processing'
+    | '/reports'
+    | '/search'
+    | '/settings'
     | '/timeline'
   id:
     | '__root__'
     | '/'
+    | '/audit'
     | '/entities'
     | '/evidence'
     | '/network'
     | '/new-investigation'
     | '/patterns'
     | '/processing'
+    | '/reports'
+    | '/search'
+    | '/settings'
     | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuditRoute: typeof AuditRoute
   EntitiesRoute: typeof EntitiesRoute
   EvidenceRoute: typeof EvidenceRoute
   NetworkRoute: typeof NetworkRoute
   NewInvestigationRoute: typeof NewInvestigationRoute
   PatternsRoute: typeof PatternsRoute
   ProcessingRoute: typeof ProcessingRoute
+  ReportsRoute: typeof ReportsRoute
+  SearchRoute: typeof SearchRoute
+  SettingsRoute: typeof SettingsRoute
   TimelineRoute: typeof TimelineRoute
 }
 
@@ -141,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit': {
+      id: '/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/entities': {
@@ -185,6 +244,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProcessingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports': {
+      id: '/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof ReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/timeline': {
       id: '/timeline'
       path: '/timeline'
@@ -197,12 +277,16 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuditRoute: AuditRoute,
   EntitiesRoute: EntitiesRoute,
   EvidenceRoute: EvidenceRoute,
   NetworkRoute: NetworkRoute,
   NewInvestigationRoute: NewInvestigationRoute,
   PatternsRoute: PatternsRoute,
   ProcessingRoute: ProcessingRoute,
+  ReportsRoute: ReportsRoute,
+  SearchRoute: SearchRoute,
+  SettingsRoute: SettingsRoute,
   TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
