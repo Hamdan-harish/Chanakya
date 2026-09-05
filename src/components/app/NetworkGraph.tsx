@@ -307,6 +307,7 @@ export function NetworkGraph({
                 className="cursor-pointer transition-opacity duration-200"
                 onClick={(ev) => {
                   ev.stopPropagation();
+                  console.log("NODECLICK", n.id);
                   onSelectNode(n.id);
                   onSelectEdge(null);
                 }}
