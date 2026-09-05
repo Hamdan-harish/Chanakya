@@ -10,14 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EntitiesRouteImport } from './routes/entities'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as NetworkRouteImport } from './routes/network'
 import { Route as NewInvestigationRouteImport } from './routes/new-investigation'
+import { Route as PatternsRouteImport } from './routes/patterns'
 import { Route as ProcessingRouteImport } from './routes/processing'
+import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntitiesRoute = EntitiesRouteImport.update({
+  id: '/entities',
+  path: '/entities',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EvidenceRoute = EvidenceRouteImport.update({
@@ -35,55 +43,95 @@ const NewInvestigationRoute = NewInvestigationRouteImport.update({
   path: '/new-investigation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatternsRoute = PatternsRouteImport.update({
+  id: '/patterns',
+  path: '/patterns',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProcessingRoute = ProcessingRouteImport.update({
   id: '/processing',
   path: '/processing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
+  '/patterns': typeof PatternsRoute
   '/processing': typeof ProcessingRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
+  '/patterns': typeof PatternsRoute
   '/processing': typeof ProcessingRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/entities': typeof EntitiesRoute
   '/evidence': typeof EvidenceRoute
   '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
+  '/patterns': typeof PatternsRoute
   '/processing': typeof ProcessingRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/evidence' | '/network' | '/new-investigation' | '/processing'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/evidence' | '/network' | '/new-investigation' | '/processing'
-  id:
-    | '__root__'
     | '/'
+    | '/entities'
     | '/evidence'
     | '/network'
     | '/new-investigation'
+    | '/patterns'
     | '/processing'
+    | '/timeline'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/entities'
+    | '/evidence'
+    | '/network'
+    | '/new-investigation'
+    | '/patterns'
+    | '/processing'
+    | '/timeline'
+  id:
+    | '__root__'
+    | '/'
+    | '/entities'
+    | '/evidence'
+    | '/network'
+    | '/new-investigation'
+    | '/patterns'
+    | '/processing'
+    | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EntitiesRoute: typeof EntitiesRoute
   EvidenceRoute: typeof EvidenceRoute
   NetworkRoute: typeof NetworkRoute
   NewInvestigationRoute: typeof NewInvestigationRoute
+  PatternsRoute: typeof PatternsRoute
   ProcessingRoute: typeof ProcessingRoute
+  TimelineRoute: typeof TimelineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -93,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entities': {
+      id: '/entities'
+      path: '/entities'
+      fullPath: '/entities'
+      preLoaderRoute: typeof EntitiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/evidence': {
@@ -116,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewInvestigationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patterns': {
+      id: '/patterns'
+      path: '/patterns'
+      fullPath: '/patterns'
+      preLoaderRoute: typeof PatternsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/processing': {
       id: '/processing'
       path: '/processing'
@@ -123,15 +185,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProcessingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EntitiesRoute: EntitiesRoute,
   EvidenceRoute: EvidenceRoute,
   NetworkRoute: NetworkRoute,
   NewInvestigationRoute: NewInvestigationRoute,
+  PatternsRoute: PatternsRoute,
   ProcessingRoute: ProcessingRoute,
+  TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
