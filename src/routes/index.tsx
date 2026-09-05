@@ -136,8 +136,8 @@ function Metric({
   icon: typeof Users;
   label: string;
   value: string | number;
-  tone?: "risk";
-  small?: boolean;
+  tone?: "risk" | undefined;
+  small?: boolean | undefined;
 }) {
   return (
     <div className="bg-surface px-3.5 py-3">

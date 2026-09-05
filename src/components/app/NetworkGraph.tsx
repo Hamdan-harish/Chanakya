@@ -63,12 +63,12 @@ export function NetworkGraph({
   onSelectEdge,
   expanded,
 }: Props) {
-  const [transform, setTransform] = useState({ k: 0.78, x: 40, y: 20 });
+  const [transform, setTransform] = useState({ k: 0.56, x: 24, y: 170 });
   const [hover, setHover] = useState<string | null>(null);
   const dragRef = useRef<{ x: number; y: number; tx: number; ty: number } | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const reset = useCallback(() => setTransform({ k: 0.78, x: 40, y: 20 }), []);
+  const reset = useCallback(() => setTransform({ k: 0.56, x: 24, y: 170 }), []);
 
   const nodeMap = useMemo(() => new Map(NODES.map((n) => [n.id, n])), []);
 
@@ -159,7 +159,7 @@ export function NetworkGraph({
       return { k, x: mx - (mx - t.x) * ratio, y: my - (my - t.y) * ratio };
     });
 
-  const showLabels = transform.k > 0.62;
+  const showLabels = transform.k > 0.5;
   const showEdgeLabels = transform.k > 1.0;
 
   return (
