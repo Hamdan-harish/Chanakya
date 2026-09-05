@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EvidenceRouteImport } from './routes/evidence'
+import { Route as NetworkRouteImport } from './routes/network'
 import { Route as NewInvestigationRouteImport } from './routes/new-investigation'
 import { Route as ProcessingRouteImport } from './routes/processing'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const EvidenceRoute = EvidenceRouteImport.update({
   id: '/evidence',
   path: '/evidence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NetworkRoute = NetworkRouteImport.update({
+  id: '/network',
+  path: '/network',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NewInvestigationRoute = NewInvestigationRouteImport.update({
@@ -38,12 +44,14 @@ const ProcessingRoute = ProcessingRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/evidence': typeof EvidenceRoute
+  '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
   '/processing': typeof ProcessingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/evidence': typeof EvidenceRoute
+  '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
   '/processing': typeof ProcessingRoute
 }
@@ -51,20 +59,29 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/evidence': typeof EvidenceRoute
+  '/network': typeof NetworkRoute
   '/new-investigation': typeof NewInvestigationRoute
   '/processing': typeof ProcessingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/evidence' | '/new-investigation' | '/processing'
+  fullPaths:
+    '/' | '/evidence' | '/network' | '/new-investigation' | '/processing'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/evidence' | '/new-investigation' | '/processing'
-  id: '__root__' | '/' | '/evidence' | '/new-investigation' | '/processing'
+  to: '/' | '/evidence' | '/network' | '/new-investigation' | '/processing'
+  id:
+    | '__root__'
+    | '/'
+    | '/evidence'
+    | '/network'
+    | '/new-investigation'
+    | '/processing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EvidenceRoute: typeof EvidenceRoute
+  NetworkRoute: typeof NetworkRoute
   NewInvestigationRoute: typeof NewInvestigationRoute
   ProcessingRoute: typeof ProcessingRoute
 }
@@ -83,6 +100,13 @@ declare module '@tanstack/react-router' {
       path: '/evidence'
       fullPath: '/evidence'
       preLoaderRoute: typeof EvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/network': {
+      id: '/network'
+      path: '/network'
+      fullPath: '/network'
+      preLoaderRoute: typeof NetworkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/new-investigation': {
@@ -105,6 +129,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EvidenceRoute: EvidenceRoute,
+  NetworkRoute: NetworkRoute,
   NewInvestigationRoute: NewInvestigationRoute,
   ProcessingRoute: ProcessingRoute,
 }
