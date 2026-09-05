@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as NewInvestigationRouteImport } from './routes/new-investigation'
+import { Route as ProcessingRouteImport } from './routes/processing'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,44 @@ const NewInvestigationRoute = NewInvestigationRouteImport.update({
   path: '/new-investigation',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProcessingRoute = ProcessingRouteImport.update({
+  id: '/processing',
+  path: '/processing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/evidence': typeof EvidenceRoute
   '/new-investigation': typeof NewInvestigationRoute
+  '/processing': typeof ProcessingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/evidence': typeof EvidenceRoute
   '/new-investigation': typeof NewInvestigationRoute
+  '/processing': typeof ProcessingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/evidence': typeof EvidenceRoute
   '/new-investigation': typeof NewInvestigationRoute
+  '/processing': typeof ProcessingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/evidence' | '/new-investigation'
+  fullPaths: '/' | '/evidence' | '/new-investigation' | '/processing'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/evidence' | '/new-investigation'
-  id: '__root__' | '/' | '/evidence' | '/new-investigation'
+  to: '/' | '/evidence' | '/new-investigation' | '/processing'
+  id: '__root__' | '/' | '/evidence' | '/new-investigation' | '/processing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EvidenceRoute: typeof EvidenceRoute
   NewInvestigationRoute: typeof NewInvestigationRoute
+  ProcessingRoute: typeof ProcessingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +92,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewInvestigationRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/processing': {
+      id: '/processing'
+      path: '/processing'
+      fullPath: '/processing'
+      preLoaderRoute: typeof ProcessingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EvidenceRoute: EvidenceRoute,
   NewInvestigationRoute: NewInvestigationRoute,
+  ProcessingRoute: ProcessingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
