@@ -25,10 +25,12 @@ import {
 } from "@/data/case-data";
 
 export const Route = createFileRoute("/network")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    pattern: typeof search.pattern === "string" ? search.pattern : undefined,
-    node: typeof search.node === "string" ? search.node : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { pattern?: string; node?: string } => {
+    const out: { pattern?: string; node?: string } = {};
+    if (typeof search["pattern"] === "string") out.pattern = search["pattern"];
+    if (typeof search["node"] === "string") out.node = search["node"];
+    return out;
+  },
   head: () => ({
     meta: [
       { title: "Investigation Network — Chanakya" },

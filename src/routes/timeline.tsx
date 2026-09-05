@@ -134,7 +134,7 @@ function EventRow({ event, onOpen }: { event: TimelineEvent; onOpen: (id: string
         </button>
         <Link
           to="/network"
-          search={{ node: event.focus[0] }}
+          search={event.focus[0] ? { node: event.focus[0] } : {}}
           className="focus-ring rounded-sm border border-border px-2 py-1 text-[11.5px] text-foreground hover:bg-surface-2"
         >
           Focus graph
