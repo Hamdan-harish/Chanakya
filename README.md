@@ -1,9 +1,6 @@
 # Chanakya — AI-Powered Criminal Network Analysis System (CrimNet-X)
 
-[![SIH Problem Statement 26189](https://img.shields.io/badge/SIH-Problem_26189-blue.svg)](https://www.sih.gov.in/)
-[![Framework](https://img.shields.io/badge/Frontend-TanStack_Start_%2B_React_19-cyan.svg)](https://tanstack.com/start)
-[![Styling](https://img.shields.io/badge/Styling-Tailwind_CSS_v4-06B6D4.svg)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 
 > **Chanakya (CrimNet-X)** is a **provenance-first investigator workbench** designed for law enforcement and intelligence analysts. It ingests fragmented, heterogeneous crime data—including FIRs, CDRs, financial records, surveillance logs, criminal histories, and social media intelligence—to automatically extract entities, resolve identities, correlate multi-hop relationships, and render an explainable criminal network graph.
 
