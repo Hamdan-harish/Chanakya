@@ -1,1000 +1,175 @@
-# Chanakya Insights
+# Chanakya — AI-Powered Criminal Network Analysis System (CrimNet-X)
 
-Design and build a polished, production-quality web application UI for a government/law-enforcement investigation platform called Chanakya** — Criminal Network Analysis System**.
+[![SIH Problem Statement 26189](https://img.shields.io/badge/SIH-Problem_26189-blue.svg)](https://www.sih.gov.in/)
+[![Framework](https://img.shields.io/badge/Frontend-TanStack_Start_%2B_React_19-cyan.svg)](https://tanstack.com/start)
+[![Styling](https://img.shields.io/badge/Styling-Tailwind_CSS_v4-06B6D4.svg)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-The product is an investigator workbench for Problem Statement 26189: an AI-powered system that processes fragmented crime-related data from multiple sources such as FIRs/police reports, CDRs, financial transactions, surveillance reports, social-media intelligence, criminal-history records, and intelligence reports; extracts entities and relationships; builds a network; identifies influential entities; detects suspicious patterns; and gives investigators visual and analytical insights.
+> **Chanakya (CrimNet-X)** is a **provenance-first investigator workbench** designed for law enforcement and intelligence analysts. It ingests fragmented, heterogeneous crime data—including FIRs, CDRs, financial records, surveillance logs, criminal histories, and social media intelligence—to automatically extract entities, resolve identities, correlate multi-hop relationships, and render an explainable criminal network graph.
 
-IMPORTANT:
-This is NOT a generic SaaS analytics dashboard.
-This is NOT a chatbot.
-The primary visual object is the investigation network graph.
-The UI should feel like a serious intelligence-analysis / investigative platform used by trained investigators.
+---
 
-DESIGN LANGUAGE
+## 🌟 Key Highlights & Differentiators
 
-Use a dark, professional, high-trust interface.
+Unlike generic dashboards or black-box LLM systems, **Chanakya (CrimNet-X)** prioritizes **traceability, low false-merge rates, and explicit uncertainty handling**:
 
-Visual direction:
+- 🔍 **First-Class Epistemic Provenance**: Every node and edge retains an immutable evidence trail pointing back to the exact source document, page number, OCR bounding box, and text span.
+- 🌐 **Multilingual & Code-Mixed Support**: Combines **IndicTrans2** (22 Indian languages), **IndicNER**, and zero-shot **GLiNER** to parse Hindi, Tamil, Telugu, English, and code-mixed Indian text without heavy model retraining.
+- 🔀 **Probabilistic Entity Resolution (ER)**: Implements **Splink** (Fellegi-Sunter model with blocking) to minimize false merges between individuals sharing similar names or aliases.
+- ⏰ **Bi-Temporal Knowledge Graph**: Tracks both **valid time** (_when event happened in real world_) and **observed/recorded time** (_when reported/ingested_). Conflicting claims are preserved rather than silently overwritten.
+- 📊 **Classical Social Network Analysis (SNA)**: Identifies key influencers, hubs, brokers, and covert gangs using **PageRank**, **Betweenness Centrality**, and **Louvain Community Detection**.
+- 🛡️ **Human-in-the-Loop Verification**: Low-confidence extractions, ambiguous entity merges, and contradictory claims are flagged for investigator review, creating a transparent decision-support workflow.
 
-Dark charcoal / near-black background
+---
 
-Subtle borders and surfaces
+## 🏗️ System Architecture (CrimNet-X)
 
-White/light-gray typography
-
-restrained accent colors
-
-red/orange only for alerts, suspicious activity, and high-risk indicators
-
-blue/cyan can be used for neutral information and selected entities
-
-avoid excessive gradients, glassmorphism, neon cyberpunk styling, or flashy animations
-
-dense but organized information layout
-
-desktop-first application
-
-responsive enough for laptop/tablet
-
-strong visual hierarchy
-
-professional government/intelligence software aesthetic
-
-typography should feel highly legible and technical
-
-use icons consistently
-
-animations should be subtle and functional
-
-Do not make it look like a stock admin template.
-
-APPLICATION STRUCTURE
-
-Create a persistent left sidebar.
-
-Top of sidebar:
-SUTR
-“Criminal Network Analysis”
-
-Navigation:
-
-CASE
-
-Overview
-
-Evidence
-
-Processing
-
-INVESTIGATE
-
-Network
-
-Entities
-
-Patterns
-
-Timeline
-
-OUTPUT
-
-Reports
-
-SYSTEM
-
-Audit Log
-
-Settings
-
-At the very top of the application, show:
-
-current case name
-
-case ID
-
-global search
-
-notifications/alerts
-
-investigator profile
-
-After a case is opened, the Network screen should be the primary investigation workspace.
-
-SCREEN 1 — CASE OVERVIEW
-
-Create a case-oriented landing page.
-
-Do NOT use meaningless KPI-card-heavy SaaS design.
-
-Instead show:
-
-ACTIVE INVESTIGATIONS
-
-Example cards/list items:
-
-OPERATION ALPHA
-Case ID: OP-2026-001
-Status: Active
-23 entities
-47 relationships
-4 suspicious patterns
-Last activity: 12 minutes ago
-
-OPERATION BRAVO
-Case ID: OP-2026-002
-Status: Under Review
-...
-
-Each case should have:
-
-case name
-
-case ID
-
-date created
-
-status
-
-entity count
-
-relationship count
-
-number of alerts
-
-investigator/owner
-
-last updated
-
-“Open Investigation” action
-
-Include a prominent:
-
-New Investigation
-
-Include a small “Recent Activity” panel.
-
-SCREEN 2 — CREATE INVESTIGATION
-
-Create a clean case creation form.
-
-Fields:
-
-Case Name
-
-Case ID (auto-generated)
-
-Investigation Type
-
-Description
-
-Priority
-
-Assigned Investigator
-
-Buttons:
-Cancel
-Create Investigation
-
-After creation, navigate to Evidence.
-
-SCREEN 3 — EVIDENCE / DATA INGESTION
-
-This screen is extremely important.
-
-The investigator must clearly understand that the system can process MULTIPLE DATA SOURCES.
-
-Show six large source cards:
-
-FIR / Police Report
-icon: document
-formats: PDF, DOCX, TXT
-
-CDR
-icon: phone
-formats: CSV, XLSX
-
-Financial Transactions
-icon: bank/card
-formats: CSV, XLSX
-
-Criminal History
-icon: database/folder
-formats: CSV, JSON
-
-Surveillance Reports
-icon: eye/document
-formats: PDF, TXT
-
-Social-Media Intelligence
-icon: globe/social
-formats: JSON, CSV, TXT
-
-Each card should have:
-
-source icon
-
-source name
-
-short description
-
-supported formats
-
-Upload button
-
-Also provide:
-“Upload files” drag-and-drop area
-
-Show uploaded files in a table:
-
-Filename
-Source
-Format
-Size
-Uploaded
-Status
-
-Example:
-
-FIR_002.pdf
-FIR
-PDF
-2.4 MB
-13:42
-Ready
-
-cdr_august.csv
-CDR
-CSV
-8.1 MB
-13:43
-Ready
-
-transactions.csv
-Financial
-CSV
-4.7 MB
-13:44
-Ready
-
-At the bottom:
-[ Process Investigation ]
-
-Include a small security note:
-“Case data is restricted to authorized investigators.”
-
-SCREEN 4 — PROCESSING
-
-Do not use a simple spinner.
-
-Create an intelligent processing visualization showing the system transforming raw evidence into structured intelligence.
-
-Vertical pipeline:
-
-✓ Documents ingested
-✓ Text extracted
-✓ Entities extracted
-✓ Relationships identified
-◉ Entity resolution
-○ Graph construction
-○ Pattern analysis
-○ Network analysis
-
-On the right or below show live processing statistics:
-
-Documents processed: 17
-Entities identified: 126
-Relationships identified: 243
-Potential duplicate identities: 19
-Potential suspicious patterns: 7
-
-Show source-specific progress:
-
-FIR
-████████████ 100%
-
-CDR
-████████████ 100%
-
-Financial
-███████████░ 92%
-
-Social intelligence
-███████░░░░░ 64%
-
-Use subtle animated progress, not flashy effects.
-
-When processing finishes:
-[ Enter Investigation Workspace ]
-
-SCREEN 5 — MAIN INVESTIGATION NETWORK WORKSPACE
-
-THIS IS THE MOST IMPORTANT SCREEN.
-
-The network graph should occupy the majority of the screen.
-
-Layout:
-
-LEFT:
-Filters and investigation controls
-
-CENTER:
-Large interactive network graph
-
-RIGHT:
-Selected entity / relationship / alert information panel
-
-TOP:
-Case name
-global search
-time filter
-alerts
-
-Left panel
-
-FILTER NETWORK
-
-Entity Type:
-□ Person
-□ Phone
-□ Bank Account
-□ Vehicle
-□ Location
-□ Organization
-□ Social Account
-
-Relationship:
-□ Calls
-□ Transfers
-□ Owns
-□ Visited
-□ Associated With
-□ Member Of
-
-Additional:
-Confidence
-Date range
-Source
-Alert level
-
-Buttons:
-Apply
-Reset
-
-Center graph
-
-Display a realistic fictional criminal network.
-
-Use different node shapes/icons for different entity types.
-
-Example:
-
-Person
-Phone
-Bank Account
-Vehicle
-Location
-Organization
-Social Account
-
-Edges must have relationship labels.
-
-Example:
-Person — CALLS — Phone
-Person — TRANSFERS — Account
-Person — OWNS — Vehicle
-Person — VISITED — Location
-Person — ASSOCIATED WITH — Person
-
-Do NOT create a random spaghetti graph.
-
-Create a clear, readable network with clusters and meaningful structure.
-
-The graph should support:
-
-zoom
-
-pan
-
-node selection
-
-edge selection
-
-focus on node
-
-expand neighbors
-
-hide/show node categories
-
-search within graph
-
-reset view
-
-Include a small legend.
-
-When a node is selected:
-
-highlight that node
-
-highlight first-degree relationships
-
-dim unrelated nodes
-
-When an edge is selected:
-show its relationship details in the right panel.
-
-SCREEN 6 — ENTITY DETAIL PANEL
-
-When the investigator clicks a person node, show a rich entity panel.
-
-Example:
-
-PERSON
-
-Ravi Kumar
-Alias: R. Kumar
-
-Possible Role:
-Recruiter
-
-Confidence:
-87%
-
-Identifiers
-Phone:
-9876543210
-
-Vehicle:
-KL-07-AB-1234
-
-Location:
-Kochi
-
-Network
-12 people
-2 phones
-4 accounts
-5 locations
-
-Sources:
-FIR-02
-CDR-114
-TXN-019
-SUR-07
-
-Actions:
-[ View Evidence ]
-[ Expand Network ]
-[ Add Investigation Note ]
-
-IMPORTANT:
-Never present an AI prediction as a confirmed fact.
-
-Use language such as:
-“Possible role”
-“Potential connection”
-“Confidence”
-“Requires review”
-
-Instead of:
-“Criminal”
-“Confirmed financier”
-“Guilty”
-
-SCREEN 7 — WHY WAS THIS ENTITY FLAGGED?
-
-This is one of the most important features.
-
-When the investigator clicks a suspicious entity or a predicted role, open a detailed explanation panel.
-
-Title:
-WHY THIS ENTITY WAS FLAGGED
-
-Example:
-
-Possible Role
-FINANCIER
-
-Confidence
-87%
-
-Supporting Signals
-
-• 14 transactions with 3 network members
-• 9 transactions occurred shortly after communication events
-• Connected to 2 suspected transporters
-• Activity increased significantly during the investigation period
-
-SOURCE EVIDENCE
-
-TXN-014
-₹45,000 → Account 4921
-
-TXN-019
-₹80,000 → Account 7712
-
-CDR-114
-Call with Suspect B
-
-FIR-02
-Witness reference
-
-Every piece of evidence should be clickable.
-
-Clicking evidence should open the underlying source record/document preview.
-
-Visually distinguish:
-AI-derived interpretation
-vs
-raw evidence
-
-Add a disclaimer:
-“AI-generated analysis is investigative assistance and not a determination of guilt.”
-
-SCREEN 8 — ENTITY RESOLUTION REVIEW
-
-Create a dedicated screen for possible duplicate identities.
-
-Title:
-ENTITY RESOLUTION
-
-Example card:
-
-Possible Identity Match
-
-Ramesh Kumar
-R. Kumar
-Ramesh K.
-रमेश कुमार
-
-Match confidence:
-94%
-
-Matching signals:
-✓ similar name
-✓ same phone number
-✓ same location
-✓ overlapping network connections
-
-Show two clear actions:
-
-[ Merge Entities ]
-[ Keep Separate ]
-
-Allow investigator review.
-
-The UI should make it obvious that AI suggestions can be manually reviewed rather than silently merged.
-
-SCREEN 9 — SUSPICIOUS PATTERNS
-
-Create a dedicated analytical page.
-
-Title:
-Suspicious Patterns
-
-Show a ranked list.
-
-Example:
-
-HIGH
-Coordinated Communication Burst
-
-23 entities
-18:40–19:05
-
-[ Investigate ]
-
-MEDIUM
-Unusual Financial Flow
-
-₹18.4 lakh
-7 accounts
-
-[ Investigate ]
-
-MEDIUM
-Repeated Cross-Location Activity
-
-Kochi → Bengaluru → Mumbai
-
-[ Investigate ]
-
-Each alert should show:
-
-severity
-
-pattern name
-
-entities affected
-
-timeframe
-
-concise reason
-
-confidence
-
-source count
-
-Investigate button
-
-When clicking Investigate:
-automatically open Network and focus the relevant subgraph.
-
-SCREEN 10 — TIMELINE
-
-Create a chronological investigation timeline.
-
-Example:
-
-04 AUG
-
-09:42
-Call
-A → B
-
-11:10
-Financial transaction
-₹50,000
-Account A → Account B
-
-07 AUG
-
-18:30
-Vehicle sighting
-Location X
-
-19:04
-Call
-B → C
-
-12 AUG
-
-21:10
-Communication burst
-17 calls in 15 minutes
-
-⚠ Suspicious activity spike
-
-Timeline filters:
-
-Calls
-
-Transactions
-
-Locations
-
-Reports
-
-Social activity
-
-Clicking an event should open its source record and optionally focus related graph nodes.
-
-SCREEN 11 — GLOBAL SEARCH
-
-Make search extremely prominent.
-
-Placeholder:
-
-“Search people, phones, vehicles, accounts, locations, cases…”
-
-Example query:
-9876543210
-
-Results:
-
-9876543210
-
-Associated Person
-Ravi Kumar
-
-Associated Cases
-OP-2026-001
-
-Related entities
-4 people
-2 vehicles
-3 locations
-
-[ Open Investigation ]
-
-Search should return heterogeneous entity types.
-
-SCREEN 12 — REPORTS
-
-Create an investigator-facing report page.
-
-Show:
-
-INVESTIGATION REPORT
-
-Case:
-OPERATION ALPHA
-
-Sections:
-
-Case Summary
-Key Entities
-Network Summary
-Suspicious Patterns
-Timeline
-Relationship Evidence
-Source References
-
-Buttons:
-
-[ Export PDF ]
-[ Export JSON ]
-
-The report should distinguish:
-Observed evidence
-AI-generated analysis
-Investigator notes
-
-SCREEN 13 — AUDIT LOG
-
-Professional audit trail.
-
-Example:
-
-12:42
-Inspector A
-Opened Case OP-001
-
-12:43
-Inspector A
-Viewed Ravi Kumar
-
-12:44
-Inspector A
-Reviewed entity merge
-
-12:46
-Inspector A
-Exported investigation report
-
-Show:
-timestamp
-user
-action
-case
-object
-
-Include filters by date, investigator, action.
-
-CORE INTERACTIONS
-
-The prototype should feel interactive even if backend data is mocked.
-
-Implement:
-
-navigation between pages
-
-case selection
-
-file upload UI
-
-processing animation
-
-network graph interactions
-
-clicking nodes
-
-clicking edges
-
-filters
-
-search
-
-opening evidence
-
-opening suspicious patterns
-
-entity merge review
-
-timeline interactions
-
-report export button UI
-
-audit log navigation
-
-Use realistic fictional data throughout.
-
-Do NOT use real personally identifiable information.
-
-SAMPLE NETWORK DATA
-
-Create one realistic demo investigation with approximately:
-
-15–25 people/entities
-8–12 phone numbers
-5–8 bank accounts
-4–6 vehicles
-5–8 locations
-2–4 organizations
-3–5 social accounts
-
-Create meaningful relationships between them.
-
-Include at least one hidden/interesting structure that becomes apparent when multiple sources are correlated.
-
-Example:
-
-Ravi Kumar
-→ Phone 9876543210
-→ calls Amit
-→ transfers money to Account B
-→ Account B is linked to transporter
-→ vehicle associated with transporter appears at Location X
-→ FIR contains witness mention
-→ social-media intelligence connects alias “Ravi_87”
-
-Use fictional values only.
-
-NETWORK GRAPH UX
-
-The graph is the heart of the application.
-
-Make it visually impressive but readable.
-
-Provide:
-
-zoom controls
-
-fit graph
-
-reset layout
-
-search node
-
-expand neighbors
-
-collapse neighbors
-
-filter nodes
-
-time slider
-
-relationship legend
-
-Have a “Focus Investigation” action that isolates a suspicious cluster.
-
-Add a subtle mini-map if appropriate.
-
-VISUAL HIERARCHY
-
-The most important things on screen should be:
-
-Current investigation
-
-Network relationships
-
-Suspicious findings
-
-Evidence supporting findings
-
-Entity details
-
-Do not make decorative charts more important than the investigation graph.
-
-Avoid excessive donut charts and generic business metrics.
-
-TRUST / SAFETY UX
-
-Because this is an investigative system:
-
-Use careful terminology.
-
-Prefer:
-
-Possible
-
-Suspected
-
-Potential
-
-Confidence
-
-Supporting evidence
-
-Requires review
-
-Avoid:
-
-Guilty
-
-Criminal confirmed by AI
-
-100% certain
-
-Include a persistent small notice somewhere in the investigation workspace:
-
-“AI analysis supports investigators. Findings require human verification.”
-
-Also include:
-
-source provenance
-
-timestamps
-
-confidence indicators
-
-audit trail
-
-investigator review controls
-
-DEMO FLOW
-
-The completed UI should support this exact demonstration:
-
-Investigator creates “Operation Alpha”
-
-Investigator uploads FIR, CDR, financial, surveillance, criminal-history and social-intelligence files
-
-Processing animation shows extraction
-
-System displays entities and relationships
-
-Investigator opens Network
-
-Investigator sees the unified network
-
-Investigator searches a person/phone
-
-Entity panel opens
-
-A suspicious role is shown as “Possible”
-
-Investigator clicks “Why was this entity flagged?”
-
-Supporting evidence appears
-
-Investigator clicks source evidence
-
-Timeline shows related events
-
-Investigator opens suspicious-pattern analysis
-
-Investigator exports a report
-
-The experience should tell a coherent story from fragmented evidence to actionable investigative intelligence.
-
-TECHNICAL UI EXPECTATIONS
-
-Use:
-
-React
-
-TypeScript
-
-Tailwind CSS
-
-modern component library where helpful
-
-Cytoscape.js, React Flow, Sigma.js, or another appropriate graph visualization library
-
-responsive layout
-
-reusable components
-
-clean component architecture
-
-Use mock data so every screen is populated and visually convincing.
-
-Do not spend time building a backend or machine-learning model in this task unless required by the selected UI generation environment.
-
-The output should be a polished FRONTEND PROTOTYPE that looks like a real investigative product and is ready for us to connect to our actual backend later.
-
-Most important:
-Make the Network Investigation Workspace the visual centerpiece.
-Make evidence provenance and “Why was this flagged?” a major differentiating interaction.
-Make the entire application feel like one coherent investigator workflow rather than a collection of unrelated dashboard pages.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
 ```
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                             HETEROGENEOUS DATA SOURCES                           │
+│     [ FIRs / PDFs ]   [ CDR CSVs ]   [ Bank Txns ]   [ Surveillance ]   [ OSINT ]  │
+└─────────────────────────┬────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                         DOCUMENT AI & INGESTION LAYER                            │
+│     • EasyOCR / Cloud OCR       • Language Detection (langdetect)                │
+│     • IndicTrans2 Translation   • Layout & Text Normalization                    │
+└─────────────────────────┬────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                       HYBRID EXTRACTION & RESOLUTION LAYER                       │
+│     • Multilingual NER: spaCy + IndicNER + GLiNER (Zero-shot)                    │
+│     • Relation Extraction: GLiNER-Relex & Pattern Rules                        │
+│     • Entity Resolution: Splink (Fellegi-Sunter) with Phonetic/Attribute Blocking │
+└─────────────────────────┬────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                       EPISTEMIC & BI-TEMPORAL KNOWLEDGE GRAPH                    │
+│     • Neo4j Graph DB: Person, Org, Phone, Vehicle, Account, Event, Claim nodes   │
+│     • Temporal Fields: valid_from, valid_to, observed_at, recorded_at             │
+│     • Evidence Linking: Document ID, Page, Bounding Box, Confidence Score        │
+└─────────────────────────┬────────────────────────────────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────────────────────────────────┐
+│                     INVESTIGATOR WORKBENCH & ANALYTICS UI                        │
+│     • Interactive Network Graph    • Evidence Provenance Panel                   │
+│     • SNA Analytics (PageRank)     • Suspicious Pattern & Timeline Views         │
+│     • Human-in-the-Loop Review     • Official Intelligence Reports Export       │
+└──────────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🛠️ Technology Stack & Decision Register
+
+| Layer                 | Selected Tech (MVP / Production)              | Alternatives Evaluated          | Rationale                                                                                                               |
+| :-------------------- | :-------------------------------------------- | :------------------------------ | :---------------------------------------------------------------------------------------------------------------------- |
+| **OCR**               | **EasyOCR** (MVP), Google Cloud Vision (Prod) | Tesseract, PaddleOCR            | EasyOCR delivers high accuracy on multilingual text out-of-the-box.                                                     |
+| **Translation**       | **IndicTrans2**                               | XLM-RoBERTa, LLM Prompting      | SOTA open-source model covering all 22 scheduled Indian languages.                                                      |
+| **NER Engine**        | **GLiNER + spaCy + IndicNER**                 | Rule-only, Custom BERT          | Combines zero-shot flexibility for unknown categories with IndicNER accuracy.                                           |
+| **Entity Resolution** | **Splink** (Fellegi-Sunter model)             | Exact match, DBSCAN             | Industry-standard probabilistic record linkage with blocking to prevent $N^2$ scale blowup.                             |
+| **Graph Database**    | **Neo4j** (Community Edition)                 | ArangoDB, NebulaGraph, Postgres | Neo4j Cypher and Graph Data Science (GDS) enable instant multi-hop network traversals.                                  |
+| **Graph Analytics**   | **NetworkX / Neo4j GDS**                      | PyTorch Geometric, GNNs         | Classical SNA (PageRank, Louvain) provides explainable, deterministic leader ranking without labeled GNN training data. |
+| **Frontend UI**       | **React 19 + TanStack Start + Tailwind CSS**  | Stock Admin Templates           | Fast SSR, type-safe file-routing, dark-mode intelligence aesthetic tailored for forensic workflows.                     |
+| **Backend API**       | **FastAPI (Python)**                          | Express, Flask                  | Async performance, native Python ML/NLP library integration.                                                            |
+
+---
+
+## 📁 Repository Structure
+
+```
+.
+├── src/
+│   ├── components/
+│   │   ├── app/
+│   │   │   ├── AppShell.tsx        # Persistent sidebar navigation & topbar
+│   │   │   ├── NetworkGraph.tsx    # Interactive Canvas/SVG criminal network graph
+│   │   │   └── bits.tsx            # Reusable UI widgets & metric cards
+│   │   └── ui/                     # Radix UI primitives & Tailwind v4 components
+│   ├── data/
+│   │   └── case-data.ts            # Correlated mock dataset (FIRs, CDRs, Financial, Social)
+│   ├── lib/
+│   │   ├── error-capture.ts        # Client-side error boundaries & logging
+│   │   └── utils.ts                # Class merger & formatting helpers
+│   ├── routes/
+│   │   ├── __root.tsx              # Root HTML shell, global meta, QueryClient provider
+│   │   ├── index.tsx               # Screen 1: Active Cases Landing & New Case Modal
+│   │   ├── network.tsx             # Screen 2: Network Graph & Evidence Provenance Workbench
+│   │   ├── entities.tsx            # Screen 3: Master Entity Directory & Disambiguation
+│   │   ├── evidence.tsx            # Screen 4: Raw Evidence Vault & Ingestion Status
+│   │   ├── patterns.tsx            # Screen 5: Suspicious Pattern & Anomaly Detection
+│   │   ├── timeline.tsx            # Screen 6: Chronological Case Timeline
+│   │   ├── processing.tsx          # Screen 7: Automated Document AI Processing Pipeline
+│   │   ├── reports.tsx             # Screen 8: Intelligence Summary & Case Dossier Generator
+│   │   ├── audit.tsx               # Screen 9: Immutability & Audit Trail Log
+│   │   └── settings.tsx            # Screen 10: Confidence Thresholds & Access Policy
+│   ├── router.tsx                  # TanStack Router instance creation
+│   └── styles.css                  # Global Tailwind CSS v4 directives & custom themes
+├── public/                         # Favicons & static assets
+├── bunfig.toml                     # Bun package manager configuration
+├── package.json                    # Dependencies & build scripts
+├── tsconfig.json                   # TypeScript path aliases & strict type settings
+└── vite.config.ts                  # Vite + TanStack Start + Nitro server configuration
+```
+
+---
+
+## 🖥️ Application Screens & User Flow
+
+1. **Active Cases Landing (`/`)**: View case dossiers, status indicators, entity counts, and create new investigations (_Operation Alpha_).
+2. **Network Investigation Workspace (`/network`)**: Interactive graph view with node filtering, time slider, neighbor expansion, PageRank leader ranking, and evidence provenance panel.
+3. **Evidence Vault (`/evidence`)**: Upload and inspect raw FIRs, CDR CSVs, bank statements, surveillance images, and social intelligence records.
+4. **Processing Pipeline (`/processing`)**: Real-time status of OCR extraction, Indic translation, NER tagging, and Splink entity resolution.
+5. **Entity Directory (`/entities`)**: Master list of Persons, Organizations, Phones, Vehicles, Accounts, and Locations with confidence scores.
+6. **Pattern & Anomaly Detection (`/patterns`)**: Automated detection of circular money transfers, frequent co-locations, and burner phone swaps.
+7. **Chronological Timeline (`/timeline`)**: Bi-temporal event timeline mapping calls, meetings, and financial transactions.
+8. **Dossier & Report Generator (`/reports`)**: Export official court-ready intelligence summaries with source citations.
+9. **Audit Trail (`/audit`)**: Cryptographic hashes, user action logs, and model decision tracking for legal compliance.
+10. **System Settings (`/settings`)**: Configure ER thresholds, OCR fallback choices, and access control policies.
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **[Bun](https://bun.sh/)** (v1.1+) _or_ **Node.js** (v20+)
+
+### Installation & Development
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/vipulreddyvemula/insight-weave-555.git
+cd insight-weave-555
+
+# 2. Install dependencies using Bun
+bun install
+
+# 3. Start the local development server
+bun run dev
+```
+
+The application will be available at **`http://localhost:3000`** (or the port indicated by Vite).
+
+### Build & Lint Commands
+
+```bash
+# Build production bundle (SSR server + Cloudflare Module output via Nitro)
+bun run build
+
+# Preview production build locally
+bun run preview
+
+# Run ESLint check
+bun run lint
+
+# Format codebase with Prettier
+bun run format
+```
+
+---
+
