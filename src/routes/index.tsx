@@ -16,7 +16,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Case Overview — Chanakya" },
       {
         property: "og:description",
-        content: "Investigator workbench for correlating FIRs, CDRs, financial and surveillance evidence.",
+        content:
+          "Investigator workbench for correlating FIRs, CDRs, financial and surveillance evidence.",
       },
     ],
   }),

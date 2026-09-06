@@ -15,7 +15,10 @@ export const Route = createFileRoute("/entities")({
           "Review possible duplicate identities across sources and decide whether to merge or keep entities separate.",
       },
       { property: "og:title", content: "Entity Resolution — Chanakya" },
-      { property: "og:description", content: "Investigator-reviewed identity matching across fragmented records." },
+      {
+        property: "og:description",
+        content: "Investigator-reviewed identity matching across fragmented records.",
+      },
     ],
   }),
   component: Entities,
@@ -67,7 +70,10 @@ function Entities() {
                     <div className="label-eyebrow mb-2">Matching signals</div>
                     <ul className="space-y-1.5">
                       {c.signals.map((s) => (
-                        <li key={s} className="flex items-center gap-2 text-[12.5px] text-foreground/90">
+                        <li
+                          key={s}
+                          className="flex items-center gap-2 text-[12.5px] text-foreground/90"
+                        >
                           <Check className="h-3.5 w-3.5 shrink-0 text-success" strokeWidth={2.2} />
                           {s}
                         </li>
@@ -87,7 +93,9 @@ function Entities() {
                 <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-border pt-4">
                   {decision ? (
                     <Chip tone={decision === "merged" ? "ok" : "neutral"}>
-                      {decision === "merged" ? "Merged by Insp. A. Verma" : "Kept separate by Insp. A. Verma"}
+                      {decision === "merged"
+                        ? "Merged by Insp. A. Verma"
+                        : "Kept separate by Insp. A. Verma"}
                     </Chip>
                   ) : (
                     <>

@@ -1,15 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import {
-  Crosshair,
-  Info,
-  Layers,
-  RotateCcw,
-  Search,
-  Sparkles,
-  Target,
-  X,
-} from "lucide-react";
+import { Crosshair, Info, Layers, RotateCcw, Search, Sparkles, Target, X } from "lucide-react";
 import { AppShell } from "@/components/app/AppShell";
 import { Chip, Confidence, EvidenceLink, EvidenceViewer, SeverityTag } from "@/components/app/bits";
 import { NetworkGraph } from "@/components/app/NetworkGraph";
@@ -42,7 +33,8 @@ export const Route = createFileRoute("/network")({
       { property: "og:title", content: "Investigation Network — Chanakya" },
       {
         property: "og:description",
-        content: "Explore entities, relationships and flagged clusters in the unified investigation graph.",
+        content:
+          "Explore entities, relationships and flagged clusters in the unified investigation graph.",
       },
     ],
   }),
@@ -104,7 +96,10 @@ function Network() {
 
           <div className="space-y-5 px-4 py-4">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.75} />
+              <Search
+                className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-muted-foreground"
+                strokeWidth={1.75}
+              />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -181,7 +176,10 @@ function Network() {
               <div className="label-eyebrow mb-2">Alert Level</div>
               <div className="flex gap-1.5">
                 {["High", "Medium", "Low"].map((a) => (
-                  <span key={a} className="rounded-sm border border-border px-2 py-1 text-[11px] text-muted-foreground">
+                  <span
+                    key={a}
+                    className="rounded-sm border border-border px-2 py-1 text-[11px] text-muted-foreground"
+                  >
                     {a}
                   </span>
                 ))}
@@ -290,7 +288,10 @@ function Network() {
                   ["Potentially suspicious links", EDGES.filter((e) => e.suspicious).length],
                   ["High-alert entities", NODES.filter((n) => n.alert === "high").length],
                 ].map(([l, v]) => (
-                  <div key={l as string} className="flex justify-between border-b border-border py-1.5 text-[12.5px]">
+                  <div
+                    key={l as string}
+                    className="flex justify-between border-b border-border py-1.5 text-[12.5px]"
+                  >
                     <span className="text-muted-foreground">{l as string}</span>
                     <span className="font-mono tabular-nums text-foreground">{v as number}</span>
                   </div>
@@ -336,11 +337,15 @@ function Network() {
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="label-eyebrow">{ENTITY_KIND_META[nodeData.kind].label}</div>
-                  <h2 className="mt-1 text-[16px] font-semibold text-foreground">{nodeData.label}</h2>
+                  <h2 className="mt-1 text-[16px] font-semibold text-foreground">
+                    {nodeData.label}
+                  </h2>
                   {nodeData.alias && (
                     <div className="text-[12px] text-muted-foreground">Alias: {nodeData.alias}</div>
                   )}
-                  {nodeData.sub && <div className="text-[12px] text-muted-foreground">{nodeData.sub}</div>}
+                  {nodeData.sub && (
+                    <div className="text-[12px] text-muted-foreground">{nodeData.sub}</div>
+                  )}
                 </div>
                 {nodeData.alert !== "none" && <SeverityTag level={nodeData.alert} />}
               </div>
@@ -372,7 +377,10 @@ function Network() {
                   <div className="label-eyebrow mb-2">Identifiers</div>
                   <dl className="space-y-1.5">
                     {nodeData.identifiers.map((idf) => (
-                      <div key={idf.label} className="flex justify-between border-b border-border pb-1.5 text-[12.5px]">
+                      <div
+                        key={idf.label}
+                        className="flex justify-between border-b border-border pb-1.5 text-[12.5px]"
+                      >
                         <dt className="text-muted-foreground">{idf.label}</dt>
                         <dd className="font-mono text-foreground">{idf.value}</dd>
                       </div>
@@ -449,7 +457,9 @@ function Network() {
               <h2 className="mt-2 text-[16px] font-semibold text-foreground">{nodeData.label}</h2>
 
               <div className="mt-4 rounded-sm border border-warning/30 bg-warning/8 px-3 py-2.5">
-                <div className="label-eyebrow text-warning">Possible role · AI-derived interpretation</div>
+                <div className="label-eyebrow text-warning">
+                  Possible role · AI-derived interpretation
+                </div>
                 <div className="mt-1 font-mono text-[15px] tracking-wide text-warning">
                   {explanation.role}
                 </div>
@@ -462,7 +472,10 @@ function Network() {
                 <div className="label-eyebrow mb-2">Supporting signals</div>
                 <ul className="space-y-2">
                   {explanation.signals.map((s) => (
-                    <li key={s} className="flex gap-2 text-[12.5px] leading-relaxed text-foreground/90">
+                    <li
+                      key={s}
+                      className="flex gap-2 text-[12.5px] leading-relaxed text-foreground/90"
+                    >
                       <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-warning" />
                       {s}
                     </li>
@@ -523,7 +536,10 @@ function CheckRow({
       {dot && (
         <span
           className="h-2 w-2 shrink-0 rounded-full"
-          style={{ background: `color-mix(in oklab, ${dot} 40%, transparent)`, border: `1px solid ${dot}` }}
+          style={{
+            background: `color-mix(in oklab, ${dot} 40%, transparent)`,
+            border: `1px solid ${dot}`,
+          }}
         />
       )}
       <span className={`flex-1 truncate ${mono ? "font-mono text-[11px]" : ""}`}>{label}</span>

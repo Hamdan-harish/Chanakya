@@ -15,7 +15,10 @@ export const Route = createFileRoute("/timeline")({
           "Chronological view of calls, transactions, sightings, reports and social activity across the investigation window.",
       },
       { property: "og:title", content: "Investigation Timeline — Chanakya" },
-      { property: "og:description", content: "Correlated case events ordered in time, linked to their source records." },
+      {
+        property: "og:description",
+        content: "Correlated case events ordered in time, linked to their source records.",
+      },
     ],
   }),
   component: Timeline,
@@ -64,7 +67,15 @@ function Timeline() {
                       : "border-border text-muted-foreground hover:bg-surface-2"
                   }`}
                 >
-                  {f === "Call" ? "Calls" : f === "Transaction" ? "Transactions" : f === "Location" ? "Locations" : f === "Report" ? "Reports" : "Social activity"}
+                  {f === "Call"
+                    ? "Calls"
+                    : f === "Transaction"
+                      ? "Transactions"
+                      : f === "Location"
+                        ? "Locations"
+                        : f === "Report"
+                          ? "Reports"
+                          : "Social activity"}
                 </button>
               );
             })}
@@ -86,7 +97,11 @@ function Timeline() {
               {events
                 .filter((e) => e.day === day)
                 .map((e) => (
-                  <EventRow key={`${e.day}-${e.time}-${e.title}`} event={e} onOpen={setEvidenceId} />
+                  <EventRow
+                    key={`${e.day}-${e.time}-${e.title}`}
+                    event={e}
+                    onOpen={setEvidenceId}
+                  />
                 ))}
             </ol>
           </section>
@@ -113,7 +128,9 @@ function EventRow({ event, onOpen }: { event: TimelineEvent; onOpen: (id: string
           event.flagged ? "border-destructive/35" : ""
         }`}
       >
-        <span className="font-mono text-[12px] tabular-nums text-muted-foreground">{event.time}</span>
+        <span className="font-mono text-[12px] tabular-nums text-muted-foreground">
+          {event.time}
+        </span>
         <meta.icon className={`h-4 w-4 shrink-0 ${meta.tone}`} strokeWidth={1.75} />
         <div className="min-w-0 flex-1">
           <div className="text-[13px] text-foreground">{event.title}</div>

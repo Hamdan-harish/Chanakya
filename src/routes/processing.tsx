@@ -13,7 +13,10 @@ export const Route = createFileRoute("/processing")({
           "Live extraction pipeline converting raw case evidence into entities, relationships and candidate suspicious patterns.",
       },
       { property: "og:title", content: "Processing Evidence — Chanakya" },
-      { property: "og:description", content: "Entity extraction, resolution and network construction in progress." },
+      {
+        property: "og:description",
+        content: "Entity extraction, resolution and network construction in progress.",
+      },
     ],
   }),
   component: Processing,

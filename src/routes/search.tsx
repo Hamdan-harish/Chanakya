@@ -15,7 +15,10 @@ export const Route = createFileRoute("/search")({
           "Search people, phone numbers, vehicles, bank accounts, locations and cases across every ingested evidence source.",
       },
       { property: "og:title", content: "Global Search — Chanakya" },
-      { property: "og:description", content: "Heterogeneous entity search across the full case index." },
+      {
+        property: "og:description",
+        content: "Heterogeneous entity search across the full case index.",
+      },
     ],
   }),
   component: GlobalSearch,
@@ -48,7 +51,10 @@ function GlobalSearch() {
 
       <div className="max-w-4xl">
         <div className="relative">
-          <SearchIcon className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-muted-foreground" strokeWidth={1.75} />
+          <SearchIcon
+            className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-muted-foreground"
+            strokeWidth={1.75}
+          />
           <input
             autoFocus
             value={q}
@@ -74,8 +80,8 @@ function GlobalSearch() {
 
         <div className="mt-6 space-y-3">
           <div className="label-eyebrow">
-            {results.length} result{results.length === 1 ? "" : "s"} across {new Set(results.map((r) => r.kind)).size} entity
-            types
+            {results.length} result{results.length === 1 ? "" : "s"} across{" "}
+            {new Set(results.map((r) => r.kind)).size} entity types
           </div>
 
           {results.map((r) => {
@@ -122,7 +128,10 @@ function GlobalSearch() {
                         <div className="mt-1 flex flex-wrap gap-1.5">
                           {Object.entries(counts).map(([k, v]) => (
                             <Chip key={k}>
-                              {v} {ENTITY_KIND_META[k as keyof typeof ENTITY_KIND_META].label.toLowerCase()}
+                              {v}{" "}
+                              {ENTITY_KIND_META[
+                                k as keyof typeof ENTITY_KIND_META
+                              ].label.toLowerCase()}
                               {v > 1 ? "s" : ""}
                             </Chip>
                           ))}

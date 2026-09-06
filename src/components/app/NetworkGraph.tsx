@@ -79,8 +79,7 @@ export function NetworkGraph({
       if ((n.confidence ?? 100) < minConfidence) return false;
       if (focusSet && !focusSet.includes(n.id) && !expanded.has(n.id)) {
         const touchesFocus = EDGES.some(
-          (e) =>
-            (expanded.has(e.from) && e.to === n.id) || (expanded.has(e.to) && e.from === n.id),
+          (e) => (expanded.has(e.from) && e.to === n.id) || (expanded.has(e.to) && e.from === n.id),
         );
         if (!touchesFocus) return false;
       }
@@ -328,7 +327,10 @@ export function NetworkGraph({
                     cx={n.x}
                     cy={n.y}
                     r={r}
-                    style={{ fill: `color-mix(in oklab, ${meta.token} 22%, transparent)`, stroke: meta.token }}
+                    style={{
+                      fill: `color-mix(in oklab, ${meta.token} 22%, transparent)`,
+                      stroke: meta.token,
+                    }}
                     strokeWidth={isSel || hover === n.id ? 2.2 : 1.4}
                   />
                 )}
@@ -339,14 +341,20 @@ export function NetworkGraph({
                     width={32}
                     height={18}
                     rx={9}
-                    style={{ fill: `color-mix(in oklab, ${meta.token} 20%, transparent)`, stroke: meta.token }}
+                    style={{
+                      fill: `color-mix(in oklab, ${meta.token} 20%, transparent)`,
+                      stroke: meta.token,
+                    }}
                     strokeWidth={isSel || hover === n.id ? 2.2 : 1.4}
                   />
                 )}
                 {!isCircle && !isPill && (
                   <path
                     d={shapePath(n, r)}
-                    style={{ fill: `color-mix(in oklab, ${meta.token} 20%, transparent)`, stroke: meta.token }}
+                    style={{
+                      fill: `color-mix(in oklab, ${meta.token} 20%, transparent)`,
+                      stroke: meta.token,
+                    }}
                     strokeWidth={isSel || hover === n.id ? 2.2 : 1.4}
                   />
                 )}

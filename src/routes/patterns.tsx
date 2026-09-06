@@ -14,7 +14,10 @@ export const Route = createFileRoute("/patterns")({
           "Ranked list of potentially suspicious patterns detected across communication, financial and movement evidence.",
       },
       { property: "og:title", content: "Suspicious Patterns — Chanakya" },
-      { property: "og:description", content: "Communication bursts, layered financial flows and cross-location activity." },
+      {
+        property: "og:description",
+        content: "Communication bursts, layered financial flows and cross-location activity.",
+      },
     ],
   }),
   component: Patterns,
@@ -31,8 +34,15 @@ function Patterns() {
 
       <div className="mb-5 grid gap-3 sm:grid-cols-4">
         <StatBlock label="Open findings" value={PATTERNS.length} tone="risk" />
-        <StatBlock label="High severity" value={PATTERNS.filter((p) => p.severity === "HIGH").length} tone="risk" />
-        <StatBlock label="Entities implicated" value={PATTERNS.reduce((a, p) => a + p.entities, 0)} />
+        <StatBlock
+          label="High severity"
+          value={PATTERNS.filter((p) => p.severity === "HIGH").length}
+          tone="risk"
+        />
+        <StatBlock
+          label="Entities implicated"
+          value={PATTERNS.reduce((a, p) => a + p.entities, 0)}
+        />
         <StatBlock label="Sources correlated" value={6} tone="info" />
       </div>
 

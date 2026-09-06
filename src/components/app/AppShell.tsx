@@ -79,8 +79,7 @@ function Sidebar() {
             <div className="label-eyebrow px-3 pb-2">{group.group}</div>
             <ul className="space-y-0.5">
               {group.items.map((item) => {
-                const active =
-                  item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+                const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
                 return (
                   <li key={item.to}>
                     <Link
@@ -177,13 +176,7 @@ function TopBar() {
   );
 }
 
-export function AppShell({
-  children,
-  padded = true,
-}: {
-  children: ReactNode;
-  padded?: boolean;
-}) {
+export function AppShell({ children, padded = true }: { children: ReactNode; padded?: boolean }) {
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />

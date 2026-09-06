@@ -15,14 +15,36 @@ export const Route = createFileRoute("/audit")({
           "Immutable record of investigator actions: case access, entity views, merge reviews, searches and report exports.",
       },
       { property: "og:title", content: "Audit Log — Chanakya" },
-      { property: "og:description", content: "Full accountability trail for every action taken in the workbench." },
+      {
+        property: "og:description",
+        content: "Full accountability trail for every action taken in the workbench.",
+      },
     ],
   }),
   component: Audit,
 });
 
-const USERS = ["All investigators", "Insp. A. Verma", "Insp. S. Menon", "Insp. R. Thomas", "System", "Admin"];
-const ACTIONS = ["All actions", "Open", "View", "Search", "Filter", "Review", "Upload", "Export", "Analysis", "Login", "Access"];
+const USERS = [
+  "All investigators",
+  "Insp. A. Verma",
+  "Insp. S. Menon",
+  "Insp. R. Thomas",
+  "System",
+  "Admin",
+];
+const ACTIONS = [
+  "All actions",
+  "Open",
+  "View",
+  "Search",
+  "Filter",
+  "Review",
+  "Upload",
+  "Export",
+  "Analysis",
+  "Login",
+  "Access",
+];
 
 function Audit() {
   const [user, setUser] = useState(USERS[0]!);
@@ -71,7 +93,9 @@ function Audit() {
         <div className="flex items-center gap-2 border-b border-border px-4 py-3">
           <ShieldCheck className="h-3.5 w-3.5 text-success" strokeWidth={1.75} />
           <span className="label-eyebrow">Session trail · 05 Sep 2026</span>
-          <span className="ml-auto font-mono text-[11px] text-muted-foreground">{rows.length} entries</span>
+          <span className="ml-auto font-mono text-[11px] text-muted-foreground">
+            {rows.length} entries
+          </span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-[12.5px]">
@@ -92,12 +116,22 @@ function Audit() {
                   </td>
                   <td className="whitespace-nowrap px-4 py-2.5 text-foreground">{r.user}</td>
                   <td className="px-4 py-2.5">
-                    <Chip tone={r.action === "Export" ? "warn" : r.action === "Analysis" ? "info" : "neutral"}>
+                    <Chip
+                      tone={
+                        r.action === "Export"
+                          ? "warn"
+                          : r.action === "Analysis"
+                            ? "info"
+                            : "neutral"
+                      }
+                    >
                       {r.action}
                     </Chip>
                   </td>
                   <td className="px-4 py-2.5 text-foreground/90">{r.object}</td>
-                  <td className="whitespace-nowrap px-4 py-2.5 font-mono text-muted-foreground">{r.caseId}</td>
+                  <td className="whitespace-nowrap px-4 py-2.5 font-mono text-muted-foreground">
+                    {r.caseId}
+                  </td>
                 </tr>
               ))}
             </tbody>

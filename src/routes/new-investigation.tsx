@@ -9,10 +9,14 @@ export const Route = createFileRoute("/new-investigation")({
       { title: "Create Investigation — Chanakya" },
       {
         name: "description",
-        content: "Register a new criminal network investigation with type, priority and assigned investigator.",
+        content:
+          "Register a new criminal network investigation with type, priority and assigned investigator.",
       },
       { property: "og:title", content: "Create Investigation — Chanakya" },
-      { property: "og:description", content: "Register a new criminal network investigation case file." },
+      {
+        property: "og:description",
+        content: "Register a new criminal network investigation case file.",
+      },
     ],
   }),
   component: NewInvestigation,
@@ -70,7 +74,10 @@ function NewInvestigation() {
             </select>
           </Row>
 
-          <Row label="Description" hint="Brief investigative context. Avoid entering personal data here.">
+          <Row
+            label="Description"
+            hint="Brief investigative context. Avoid entering personal data here."
+          >
             <textarea
               className={`${field} min-h-24 resize-y`}
               placeholder="Summary of the reported activity, jurisdiction and initial leads…"
@@ -84,7 +91,12 @@ function NewInvestigation() {
                   key={p}
                   className="focus-ring flex cursor-pointer items-center gap-2 rounded-sm border border-border bg-background px-3 py-2 text-[13px] has-checked:border-primary/50 has-checked:bg-primary/10"
                 >
-                  <input type="radio" name="priority" defaultChecked={i === 0} className="accent-primary" />
+                  <input
+                    type="radio"
+                    name="priority"
+                    defaultChecked={i === 0}
+                    className="accent-primary"
+                  />
                   {p}
                 </label>
               ))}
@@ -139,7 +151,9 @@ function Row({
     <div className="grid gap-2 px-5 py-4 sm:grid-cols-[190px_1fr] sm:gap-6">
       <div>
         <div className="text-[13px] text-foreground">{label}</div>
-        {hint && <div className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">{hint}</div>}
+        {hint && (
+          <div className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground">{hint}</div>
+        )}
       </div>
       <div>{children}</div>
     </div>

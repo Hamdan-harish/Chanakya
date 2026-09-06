@@ -12,7 +12,10 @@ export const Route = createFileRoute("/settings")({
           "Analysis thresholds, data retention, access control and workspace preferences for the Chanakya investigation platform.",
       },
       { property: "og:title", content: "Settings — Chanakya" },
-      { property: "og:description", content: "Configure confidence thresholds, retention and access policy." },
+      {
+        property: "og:description",
+        content: "Configure confidence thresholds, retention and access policy.",
+      },
     ],
   }),
   component: Settings,
@@ -30,7 +33,13 @@ function Settings() {
       <div className="grid max-w-4xl gap-4">
         <Panel title="Analysis Thresholds">
           <Row label="Minimum entity confidence to display" value="30%">
-            <input type="range" min={0} max={95} defaultValue={30} className="w-48 accent-primary" />
+            <input
+              type="range"
+              min={0}
+              max={95}
+              defaultValue={30}
+              className="w-48 accent-primary"
+            />
           </Row>
           <Row label="Auto-merge identities" value="Disabled">
             <Chip tone="ok">Manual review required</Chip>
@@ -73,7 +82,15 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
-function Row({ label, value, children }: { label: string; value: string; children?: React.ReactNode }) {
+function Row({
+  label,
+  value,
+  children,
+}: {
+  label: string;
+  value: string;
+  children?: React.ReactNode;
+}) {
   return (
     <div className="flex flex-wrap items-center gap-3 px-4 py-3">
       <div className="min-w-0 flex-1">

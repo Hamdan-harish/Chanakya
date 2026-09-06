@@ -15,7 +15,10 @@ export const Route = createFileRoute("/reports")({
           "Compiled investigation report separating observed evidence, AI-generated analysis and investigator notes, with export options.",
       },
       { property: "og:title", content: "Investigation Report — Chanakya" },
-      { property: "og:description", content: "Case summary, key entities, network findings and source references." },
+      {
+        property: "og:description",
+        content: "Case summary, key entities, network findings and source references.",
+      },
     ],
   }),
   component: Reports,
@@ -40,7 +43,9 @@ function Reports() {
     setTimeout(() => setToast(null), 2500);
   };
 
-  const keyEntities = NODES.filter((n) => n.kind === "person" && n.role && n.alert !== "none").slice(0, 5);
+  const keyEntities = NODES.filter(
+    (n) => n.kind === "person" && n.role && n.alert !== "none",
+  ).slice(0, 5);
 
   return (
     <AppShell>
@@ -109,11 +114,11 @@ function Reports() {
 
           <Section id="case-summary" title="Case Summary" tone="ok">
             <p>
-              Evidence from FIRs, call detail records, financial statements, surveillance logs, criminal
-              history extracts and open-source social intelligence was ingested between 04 Aug and 20 Aug
-              2026. Correlation produced a single network of {NODES.length} entities linked by {EDGES.length}{" "}
-              relationships, concentrated in four structural clusters: a Kochi core group, a financial ring,
-              a transport arm and a Mumbai-side node.
+              Evidence from FIRs, call detail records, financial statements, surveillance logs,
+              criminal history extracts and open-source social intelligence was ingested between 04
+              Aug and 20 Aug 2026. Correlation produced a single network of {NODES.length} entities
+              linked by {EDGES.length} relationships, concentrated in four structural clusters: a
+              Kochi core group, a financial ring, a transport arm and a Mumbai-side node.
             </p>
           </Section>
 
@@ -131,15 +136,17 @@ function Reports() {
               ))}
             </ul>
             <p className="mt-3 text-[11.5px] text-muted-foreground">
-              Roles above are AI-derived interpretations expressed as possibilities and require corroboration.
+              Roles above are AI-derived interpretations expressed as possibilities and require
+              corroboration.
             </p>
           </Section>
 
           <Section id="network-summary" title="Network Summary" tone="ok">
             <p>
-              The transport arm connects the Kochi core to the Mumbai node through a single high-betweenness
-              subject. Removing that link would disconnect approximately one third of the network, which makes
-              it the most analytically significant relationship currently observed.
+              The transport arm connects the Kochi core to the Mumbai node through a single
+              high-betweenness subject. Removing that link would disconnect approximately one third
+              of the network, which makes it the most analytically significant relationship
+              currently observed.
             </p>
           </Section>
 
@@ -150,7 +157,9 @@ function Reports() {
                   <SeverityTag level={p.severity} />
                   <span className="text-foreground">{p.name}</span>
                   <span className="text-muted-foreground">· {p.window}</span>
-                  <span className="font-mono text-[11px] text-muted-foreground">{p.confidence}%</span>
+                  <span className="font-mono text-[11px] text-muted-foreground">
+                    {p.confidence}%
+                  </span>
                 </li>
               ))}
             </ul>
@@ -175,7 +184,8 @@ function Reports() {
                 .slice(0, 6)
                 .map((e) => (
                   <li key={e.id} className="text-foreground/90">
-                    <span className="font-mono text-[11px] text-primary">{e.kind}</span> — {e.detail}
+                    <span className="font-mono text-[11px] text-primary">{e.kind}</span> —{" "}
+                    {e.detail}
                   </li>
                 ))}
             </ul>
@@ -191,8 +201,9 @@ function Reports() {
 
           <Section id="investigator-note" title="Investigator Note" tone="info">
             <p>
-              Merge decision on the “Ramesh Kumar / R. Kumar” identity cluster is pending verification of the
-              subscriber record. No operational action to be taken on AI-derived roles until corroborated.
+              Merge decision on the “Ramesh Kumar / R. Kumar” identity cluster is pending
+              verification of the subscriber record. No operational action to be taken on AI-derived
+              roles until corroborated.
             </p>
           </Section>
 
@@ -244,8 +255,17 @@ function Section({
   children: React.ReactNode;
 }) {
   const border =
-    tone === "ok" ? "border-l-success/60" : tone === "warn" ? "border-l-warning/70" : "border-l-primary/70";
-  const tag = tone === "ok" ? "Observed evidence" : tone === "warn" ? "AI-generated analysis" : "Investigator note";
+    tone === "ok"
+      ? "border-l-success/60"
+      : tone === "warn"
+        ? "border-l-warning/70"
+        : "border-l-primary/70";
+  const tag =
+    tone === "ok"
+      ? "Observed evidence"
+      : tone === "warn"
+        ? "AI-generated analysis"
+        : "Investigator note";
   return (
     <section id={id} className={`mt-6 border-l-2 pl-4 ${border}`}>
       <div className="flex flex-wrap items-center gap-2">

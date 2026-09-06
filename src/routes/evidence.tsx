@@ -118,14 +118,19 @@ function Evidence() {
 
       <div className="grid gap-3 lg:grid-cols-2 xl:grid-cols-3">
         {SOURCES.map((s) => (
-          <div key={s.name} className="panel flex flex-col p-4 transition-colors hover:border-border-strong">
+          <div
+            key={s.name}
+            className="panel flex flex-col p-4 transition-colors hover:border-border-strong"
+          >
             <div className="flex items-start gap-3">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-border bg-surface-2">
                 <s.icon className="h-4 w-4 text-primary" strokeWidth={1.75} />
               </div>
               <div className="min-w-0">
                 <div className="text-[13.5px] font-medium text-foreground">{s.name}</div>
-                <div className="mt-1 text-[12px] leading-relaxed text-muted-foreground">{s.desc}</div>
+                <div className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
+                  {s.desc}
+                </div>
               </div>
             </div>
             <div className="mt-4 flex items-center justify-between gap-2 border-t border-border pt-3">
@@ -134,7 +139,9 @@ function Evidence() {
               </span>
               <button
                 type="button"
-                onClick={() => addFile(s.name.split(" ")[0] ?? s.name, s.formats.split(",")[0]!.trim())}
+                onClick={() =>
+                  addFile(s.name.split(" ")[0] ?? s.name, s.formats.split(",")[0]!.trim())
+                }
                 className="focus-ring inline-flex items-center gap-1.5 rounded-sm border border-border px-2.5 py-1.5 text-[12px] text-foreground hover:border-primary/50 hover:bg-primary/10"
               >
                 <Upload className="h-3.5 w-3.5" strokeWidth={1.75} />
@@ -189,8 +196,12 @@ function Evidence() {
                   <td className="px-4 py-2.5 font-mono text-foreground">{f.name}</td>
                   <td className="px-4 py-2.5 text-muted-foreground">{f.source}</td>
                   <td className="px-4 py-2.5 font-mono text-muted-foreground">{f.format}</td>
-                  <td className="px-4 py-2.5 font-mono tabular-nums text-muted-foreground">{f.size}</td>
-                  <td className="px-4 py-2.5 font-mono tabular-nums text-muted-foreground">{f.uploaded}</td>
+                  <td className="px-4 py-2.5 font-mono tabular-nums text-muted-foreground">
+                    {f.size}
+                  </td>
+                  <td className="px-4 py-2.5 font-mono tabular-nums text-muted-foreground">
+                    {f.uploaded}
+                  </td>
                   <td className="px-4 py-2.5">
                     <Chip tone={statusTone(f.status)}>{f.status}</Chip>
                   </td>

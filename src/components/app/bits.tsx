@@ -4,8 +4,7 @@ import { EVIDENCE } from "@/data/case-data";
 import { cn } from "@/lib/utils";
 
 export function Confidence({ value, className }: { value: number; className?: string }) {
-  const tone =
-    value >= 80 ? "bg-primary" : value >= 60 ? "bg-warning" : "bg-muted-foreground";
+  const tone = value >= 80 ? "bg-primary" : value >= 60 ? "bg-warning" : "bg-muted-foreground";
   return (
     <div className={cn("flex items-center gap-2", className)}>
       <div className="h-1 w-full min-w-14 overflow-hidden rounded-full bg-surface-2">
@@ -84,7 +83,11 @@ export function StatBlock({
       <div
         className={cn(
           "mt-1.5 font-mono text-xl tabular-nums",
-          tone === "risk" ? "text-destructive" : tone === "info" ? "text-primary" : "text-foreground",
+          tone === "risk"
+            ? "text-destructive"
+            : tone === "info"
+              ? "text-primary"
+              : "text-foreground",
         )}
       >
         {value}
@@ -109,20 +112,17 @@ export function EvidenceLink({
       onClick={() => onOpen(id)}
       className="focus-ring group inline-flex w-full items-center gap-2 rounded-sm border border-border bg-surface-2/50 px-2.5 py-2 text-left transition-colors hover:border-primary/40 hover:bg-primary/8"
     >
-      <FileText className="h-3.5 w-3.5 shrink-0 text-muted-foreground group-hover:text-primary" strokeWidth={1.75} />
+      <FileText
+        className="h-3.5 w-3.5 shrink-0 text-muted-foreground group-hover:text-primary"
+        strokeWidth={1.75}
+      />
       <span className="font-mono text-[11px] text-primary">{id}</span>
       {label && <span className="truncate text-[12px] text-muted-foreground">{label}</span>}
     </button>
   );
 }
 
-export function EvidenceViewer({
-  id,
-  onClose,
-}: {
-  id: string | null;
-  onClose: () => void;
-}) {
+export function EvidenceViewer({ id, onClose }: { id: string | null; onClose: () => void }) {
   if (!id) return null;
   const rec = EVIDENCE[id];
   return (
