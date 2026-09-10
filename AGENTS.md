@@ -197,3 +197,46 @@ The ingestion layer must detect the input type and route it to the appropriate p
 
 Use OCR only when the input actually requires OCR.
 Use native/structured parsing whenever possible.
+
+## Evidence and Provenance
+
+Evidence/provenance is a first-class requirement.
+
+Every extracted or normalized item should retain enough information to trace it back to its original source.
+
+The system should distinguish:
+
+### Provenance
+Where the information came from:
+- document_id
+- page number where applicable
+- paragraph where applicable
+- line number where applicable
+- sheet name
+- row/column
+- JSON path
+- character offsets where applicable
+
+### Evidence
+The original text or source data supporting the item:
+- evidence_text / original value
+- confidence where applicable
+
+Examples:
+
+PDF:
+page_number + character offsets + source text
+
+TXT:
+line number + character offsets + source text
+
+DOCX:
+paragraph/table location + source text
+
+CSV/XLSX:
+sheet + row + column + original value
+
+JSON:
+JSON path + original value
+
+Never discard source-location information during normalization.
