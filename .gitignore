@@ -30,3 +30,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python test/cache
+.pytest_cache/
+.mypy_cache/
+
+# Generated processing data
+Backend/data/
+Backend/uploads/
+Backend/outputs/
+Backend/tmp/
