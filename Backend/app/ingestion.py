@@ -8,7 +8,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
-import fitz
+import pymupdf as fitz
 from docx import Document
 from openpyxl import load_workbook
 from pydantic import BaseModel, Field
@@ -36,6 +36,10 @@ class SourceLocation(BaseModel):
     json_path: str | None = None
     character_start: int | None = Field(default=None, ge=0)
     character_end: int | None = Field(default=None, ge=0)
+    source_path: str | None = None
+    image_width: int | None = Field(default=None, ge=1)
+    image_height: int | None = Field(default=None, ge=1)
+    bounding_box: list[tuple[float, float]] | None = None
 
 
 class NormalizedFragment(BaseModel):
@@ -44,6 +48,7 @@ class NormalizedFragment(BaseModel):
     content: str
     original_value: Any
     location: SourceLocation
+    confidence: float | None = Field(default=None, ge=0, le=1)
 
 
 class NormalizedDocument(BaseModel):

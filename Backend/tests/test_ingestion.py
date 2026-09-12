@@ -1,6 +1,6 @@
 import json
 
-import fitz
+import pymupdf as fitz
 from docx import Document
 from openpyxl import Workbook
 
