@@ -50,3 +50,14 @@ Backend/data/
 Backend/uploads/
 Backend/outputs/
 Backend/tmp/
+
+
+# Local ML experiment environments
+.deberta-test/
+.glirel-test/
+.relation-test/
+.relik-test/
+.uie-test/
+
+# Generated test output
+Backend/test-output/

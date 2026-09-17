@@ -59,3 +59,21 @@ class DocumentGraph(BaseModel):
     temporal: TemporalInfo | None = None
     entities: list[Entity] = Field(default_factory=list)
     relationships: list[Relationship] = Field(default_factory=list)
+
+
+class ArtifactMetadata(BaseModel):
+    """Safe metadata for one uploaded evidence artifact."""
+
+    document_id: str
+    filename: str
+    content_type: str
+    size_bytes: int = Field(ge=1)
+
+
+class ProcessingMetadata(BaseModel):
+    """Routing decisions made while processing an artifact."""
+
+    input_format: str
+    mode: str
+    ocr_used: bool = False
+    docres_used: bool = False

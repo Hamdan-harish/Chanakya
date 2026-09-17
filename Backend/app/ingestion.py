@@ -21,6 +21,7 @@ class InputFormat(StrEnum):
     CSV = "csv"
     XLSX = "xlsx"
     JSON = "json"
+    IMAGE = "image"
 
 
 class SourceLocation(BaseModel):
