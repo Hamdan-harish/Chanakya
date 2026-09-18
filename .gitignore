@@ -61,3 +61,14 @@ Backend/tmp/
 
 # Generated test output
 Backend/test-output/
+# DocRes local environment and generated files
+DocRes/.venv/
+DocRes/**/__pycache__/
+DocRes/__pycache__/
+DocRes/restorted/
+
+
+# DocRes model checkpoint
+DocRes/checkpoints/
+
+DocRes/data/MBD/checkpoint/
